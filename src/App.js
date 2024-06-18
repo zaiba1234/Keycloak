@@ -1,21 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import "primereact/resources/themes/lara-light-indigo/theme.css";
-import "primereact/resources/primereact.min.css";
-import '/node_modules/primeflex/primeflex.css'
-import { Button } from 'primereact/button';
-import { Card } from 'primereact/card';
 import { httpClient } from './HttpClient';
-
 import Keycloak from 'keycloak-js';
+
+// Define a custom Button component
+const Button = ({ onClick, className, label }) => (
+  <button onClick={onClick} className={className}>{label}</button>
+);
+
+// Define a custom Card component
+const Card = ({ children }) => (
+  <div className="card">{children}</div>
+);
 
 /*
   Init Options
 */
 let initOptions = {
-  url: 'http://localhost:8080/',
-  realm: 'master',
-  clientId: 'react-client',
+  url: 'https://keycloak.netambit.net/auth',
+  // realm: 'keycloak-react-auth',
+  // clientId: 'react-client',
+
+  realm:'Netambit',
+  clientId:'react-client'
 }
 
 let kc = new Keycloak(initOptions);
@@ -64,9 +71,7 @@ function App() {
         </div>
       </div>
       <div className="grid">
-
       </div>
-
       <div className='grid'>
         <div className='col-1'></div>
         <div className='col-2'>
@@ -122,22 +127,15 @@ function App() {
           </div>
         </div>
         <div className='col-6'>
-
           <Card>
             <p style={{ wordBreak: 'break-all' }} id='infoPanel'>
               {infoMessage}
             </p>
           </Card>
         </div>
-
         <div className='col-2'></div>
       </div>
-
-
-
     </div>
   );
 }
-
-
 export default App;
